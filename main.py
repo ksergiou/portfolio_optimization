@@ -1,4 +1,5 @@
 import pandas as pd
+import sys
 import numpy as np
 import datetime as dt
 import pandas_datareader.data as dtr
@@ -8,6 +9,13 @@ from pypfopt import expected_returns, risk_models, EfficientFrontier, DiscreteAl
 import seaborn as sns
 
 sns.set_style('darkgrid')
+
+# Print everything in this file
+sys.stdout = open('output.txt', 'w')  # Change the standard output to the file we created.
+#sys.stdout = open('README.md', 'w')
+
+# Set the amount of £ available
+pf_value = 1000
 
 # Select the ETFs that comprise the portfolio
 tickers = [
@@ -40,9 +48,9 @@ def plot_save_stocks(tickers=tickers, df=df, name='ETF_prices_plot.png'):
     plt.figure(figsize=(14, 7))
     for ticker in df.columns.to_list():
         plt.plot(df[ticker], label=ticker)
-    plt.title('Adj. Close Prices')
+    plt.title('Adj. Close Prices (£)')
     plt.xlabel('Date')
-    plt.ylabel('Adj. Close Price (£)')
+    #plt.ylabel('Adj. Close Price (£)')
     plt.legend(loc='upper left')
     plt.savefig(name)
     # plt.show()
@@ -68,15 +76,17 @@ print(
     '''The equally weighted portfolio had return {:0.4f} and volatility equal to {:0.4f}.'''.format(portfolio_eq_return,
                                                                                                     portfolio_eq_std))
 
+
 # VaR
-def cvar(returns=returns, w=w ):
-    por_rets = (returns * w).sum(axis=1)
+def cvar(ret=returns, w=w):
+    por_rets = (ret * w).sum(axis=1)
     var_hist = por_rets.quantile(0.05)
     cvar_hist = por_rets[por_rets <= var_hist].mean()
     print("VaR: {:.2f}%".format(100 * var_hist))
     print("CVaR: {:.2f}%".format(100 * cvar_hist))
     print('This value of the CVaR means that our average loss on the worst 5% of days will be {:.2f}%.'.format(
         cvar_hist * 100))
+
 
 cvar()
 
@@ -95,13 +105,17 @@ CVaR = EfficientCVaR(exp_returns_est, returns.dropna(), beta=0.95, weight_bounds
 op_cvar = CVaR.efficient_risk(target_cvar=0.02)
 w_cvar = CVaR.clean_weights()
 
+# plot and save the weights
+pd.Series(w_cvar).plot.pie(figsize=(10, 10),ylabel='ETFs', title='Weights for CvaR optimized portfolio')
+plt.savefig('ii_cvar.png')
 
 # Get the discrete allocation
-def allocation(w, df=df, value=10000):
+def allocation(w, df=df, value=pf_value):
     da = DiscreteAllocation(w, get_latest_prices(df), total_portfolio_value=value)
     alloc, leftover = da.lp_portfolio()
     print('Allocation: ', alloc)
     print('Leftover: ', leftover)
+
 
 allocation(w_cvar)
 print(CVaR.portfolio_performance(verbose=True));
@@ -117,7 +131,6 @@ weights = ef.clean_weights()
 allocation(weights)
 print(ef.portfolio_performance(verbose=True))
 
-
 # CASE IV : Max Return for a given risk
 # research demonstrates GMV portfolios outperform mean-variance optimized portfolios
 # ou are much more likely to get better results by enforcing some level of diversification.
@@ -130,13 +143,16 @@ ef.efficient_risk(target_volatility=0.08)
 weights = ef.clean_weights()
 allocation(weights)
 print(ef.portfolio_performance(verbose=True))
+pd.Series(weights).plot.pie(figsize=(10, 10),ylabel='ETFs', title='Weights for Max Return portfolio, given fixed risk')
+plt.savefig('iv_max_return.png')
 
 # CASE V : Max Sharpe
 print('\nV. Max Sharpe')
 ef = EfficientFrontier(exp_returns_est, cov_matrix_est, weight_bounds=(0, 1))
-#ef.add_objective(objective_functions.L2_reg, gamma=0.1)  # gamma is the tuning parameter
+# ef.add_objective(objective_functions.L2_reg, gamma=0.1)  # gamma is the tuning parameter
 ef.max_sharpe(risk_free_rate=0.02)
 weights = ef.clean_weights()
 allocation(weights)
 print(ef.portfolio_performance(verbose=True))
 
+sys.stdout.close()

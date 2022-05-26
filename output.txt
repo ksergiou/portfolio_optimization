@@ -1,0 +1,37 @@
+I. Equally-weighted portfolio
+The equally weighted portfolio had return 0.0395 and volatility equal to 0.1103.
+VaR: -1.11%
+CVaR: -1.64%
+This value of the CVaR means that our average loss on the worst 5% of days will be -1.64%.
+
+II. CVaR optimized, long positions only
+Allocation:  {'VUSA': 13, 'VUTY': 11}
+Leftover:  7.27250862121582
+Expected annual return: 8.9%
+Conditional Value at Risk: 2.00%
+(0.08872410581482662, 0.020000000000007186)
+Annual Volatility:13.46% 
+
+III. GMV optimized
+Allocation:  {'VUKE': 6, 'VETY': 13, 'VGOV': 15, 'VUTY': 11}
+Leftover:  4.7263946533203125
+Expected annual return: -2.1%
+Annual volatility: 6.4%
+Sharpe Ratio: -0.64
+(-0.020878877069712524, 0.06435656576218027, -0.6351935748214733)
+
+IV. Max Return for a given risk
+Allocation:  {'VUKE': 4, 'VUSA': 3, 'VEVE': 2, 'VETY': 5, 'VGOV': 7, 'VUTY': 16}
+Leftover:  6.301488876342773
+Expected annual return: 2.4%
+Annual volatility: 8.0%
+Sharpe Ratio: 0.05
+(0.023627582885609552, 0.08000000009986798, 0.045344786013513244)
+
+V. Max Sharpe
+Allocation:  {'VUSA': 16}
+Leftover:  31.96002197265625
+Expected annual return: 11.4%
+Annual volatility: 16.8%
+Sharpe Ratio: 0.56
+(0.11396771065607814, 0.1683835878752102, 0.558057420214362)
