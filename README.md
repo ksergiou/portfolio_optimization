@@ -1,4 +1,5 @@
 # Portfolio Optimization
+*Building an All-ETF Portfolio*
 
 I. Equally-weighted portfolio (example)\
 II. CVaR optimized, long positions only\
@@ -23,6 +24,8 @@ V. Max Sharpe Ratio
 ![](ETF_prices_plot.png)
 
 ### Results (using pypfopt)
+*Assume the total portfolio value doesn't exceed £1,000. Ignore ongoing charges* 
+
 I. Equally-weighted portfolio\
 The equally weighted portfolio had return 0.0395 and volatility equal to 0.1103.\
 VaR: -1.11%
