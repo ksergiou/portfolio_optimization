@@ -1,4 +1,7 @@
 # Portfolio Optimization
+
+Portfolio Optimization using PyPortfolioOpt. This library uses CVXPY ([paper](https://arxiv.org/abs/1603.00943)) for the underlying convex optimization problems.
+
 *Building an All-ETF Portfolio*
 
 I. Equally-weighted portfolio (example)\
