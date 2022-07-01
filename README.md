@@ -1,4 +1,7 @@
 # Portfolio Optimization
+
+Portfolio Optimization using PyPortfolioOpt. This library uses CVXPY ([paper](https://arxiv.org/abs/1603.00943)) for the underlying convex optimization problems. 
+
 *Building an All-ETF Portfolio*
 
 I. Equally-weighted portfolio (example)\
@@ -31,7 +34,7 @@ The equally weighted portfolio had return 0.0395 and volatility equal to 0.1103.
 VaR: -1.11%
 CVaR: -1.64%
 
-II. CVaR optimized, long positions only\
+II. 5% CVaR optimized, long positions only\
 Allocation:  {'VUSA': 13, 'VUTY': 11}\
 Leftover:  7.27250862121582\
 Expected annual return: 8.9%\
