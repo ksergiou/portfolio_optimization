@@ -27,7 +27,7 @@ V. Max Sharpe Ratio
 ![](ETF_prices_plot.png)
 
 ### Results (using pypfopt)
-*Assume the total portfolio value doesn't exceed £1,000. Ignore ongoing charges* 
+*Assume the total portfolio value doesn't exceed £1,000. Ignore ongoing charges.* 
 
 I. Equally-weighted portfolio\
 The equally weighted portfolio had return 0.0395 and volatility equal to 0.1103.\
@@ -49,7 +49,7 @@ Annual volatility: 6.4%\
 Sharpe Ratio: -0.64
 
 IV. Max Return for a given risk (8%)\
-Allocation:  {'VUKE': 4, 'VUSA': 3, 'VEVE': 2, 'VETY': 5, 'VGOV': 7, 'VUTY': 16}\
+Allocation:  {'VUKE': 4, 'VUSA': 3, 'VEVE': 2, 'VETY': 5, 'VGOV': 8, 'VUTY': 15}\
 Leftover:  6.301488876342773\
 Expected annual return: 2.4%\
 Annual volatility: 8.0%\
@@ -60,4 +60,11 @@ Allocation:  {'VUSA': 16}\
 Leftover:  31.96002197265625\
 Expected annual return: 11.4%\
 Annual volatility: 16.8%\
-Sharpe Ratio: 0.56
+Sharpe Ratio: 0.56\
+*The risk-free rate is set at 0.02.* 
+
+
+
+<p align="center">
+<img src="efficient_frontier.png" img align="center"  height="500">
+</p>
